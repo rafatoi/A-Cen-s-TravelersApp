@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:traveller_app/widgets/place_card.dart';
 import 'package:traveller_app/widgets/primary_button.dart';
+import 'detail_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -53,10 +53,10 @@ class Home extends StatelessWidget {
               weightText: FontWeight.w400,
               sizeText: 18,
               onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('You Click the button'),
-                ),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DetailScreen())
               );
               },
             )
