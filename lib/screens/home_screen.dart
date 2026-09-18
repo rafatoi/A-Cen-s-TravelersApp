@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:traveller_app/widgets/primary_button.dart';
-import 'detail_screen.dart';
+import 'explore_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -56,14 +56,13 @@ class Home extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const DetailScreen())
+                      builder: (context) => const ExploreScreen())
               );
-              },
+              }
             )
-          ],
-        ),
-
-      ),
+          ]
+        )
+      )
     );
   }
 }

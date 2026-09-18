@@ -1,80 +1,77 @@
 import 'package:flutter/material.dart';
 
-class NightSelector extends StatefulWidget {
-  const NightSelector({super.key});
+//Using StatefulWidget cause it has mutable internal state
+class RatingBadget extends StatefulWidget {
+
+  const RatingBadget({super.key});
 
   @override
-  State<NightSelector> createState() => _NightSelectorState();
+  State<RatingBadget> createState() => _RatingBadgetState();
 }
 
-class _NightSelectorState extends State<NightSelector> {
-  int nights = 1;
+class _RatingBadgetState extends State<RatingBadget> {
+  int stars = 5;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        //Minus button
         SizedBox(
           width: 30,
           height: 30,
           child: IconButton(
             onPressed: () {
               setState(() {
-                if (nights > 1) {
-                  nights--;
+                if (stars > 1) {
+                  stars--;
                 }
               });
             },
             style: IconButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8)
               ),
-              backgroundColor: const Color(0xFF276A49),
+              backgroundColor: const Color(0xFF276A49)
             ),
             icon: const Icon(
               Icons.remove,
               size: 16,
-              color: Colors.white,
-            ),
-          ),
+              color: Colors.white
+            )
+          )
         ),
-
+        //Spacing
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Text('$nights'),
+          child: Text('$stars')
         ),
-
+        //Add button
         SizedBox(
           width: 30,
           height: 30,
           child: IconButton(
             onPressed: () {
               setState(() {
-                if (nights < 10) {
-                  nights++;
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('The maximus days you can book is 10!'),
-                    ),
-                  );
+                if (stars < 5) {
+                  stars++;
                 }
               });
             },
             style: IconButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8)
               ),
-              backgroundColor: const Color(0xFF276A49),
+              backgroundColor: const Color(0xFF276A49)
             ),
             icon: const Icon(
               Icons.add,
               size: 16,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
+              color: Colors.white
+            )
+          )
+        )
+      ]
     );
   }
 }

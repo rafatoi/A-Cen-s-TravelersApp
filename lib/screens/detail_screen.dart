@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:traveller_app/widgets/primary_button.dart';
 import 'package:traveller_app/widgets/rating_badget.dart';
+import 'package:traveller_app/data/travel_places.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final int id;
+
+  const DetailScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class DetailScreen extends StatelessWidget {
                   children: [
                     Positioned.fill(
                       child: Image.asset(
-                        'assets/images/winter_landscape.png',
+                        places[id].imagePath,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -54,7 +57,7 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
             Text(
-              'Greenland',
+              places[id].title,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.2),
             ),
             Row(
@@ -80,7 +83,7 @@ class DetailScreen extends StatelessWidget {
                 ),
               ],
             ),
-            NightSelector(
+            RatingBadget(
 
             ),
             const Text(
@@ -88,9 +91,7 @@ class DetailScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
-              'Enjoy your winter vacations with warmth\n'
-                  'and amazing sightseeing on the mountains.\n'
-                  'Enjoy the best experience with us!',
+              places[id].description,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, height: 1.6),
             ),
             Row(
@@ -99,7 +100,7 @@ class DetailScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                        '\$400',
+                        '\$${places[id].fee}',
                         style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -125,18 +126,17 @@ class DetailScreen extends StatelessWidget {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('You have booked! :D'),
-                        ),
+                          content: Text('You have booked! :D')
+                        )
                       );
-                    },
-                  ),
+                    }
+                  )
                 )
-              ],
-            ),
-          ],
-        ),
-
-      ),
+              ]
+            )
+          ]
+        )
+      )
     );
   }
 }

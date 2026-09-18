@@ -25,11 +25,13 @@ class PrimaryButton extends StatelessWidget {
           width: 2
         ),
         backgroundColor: const Color(0xFF276A49),
+        //Content color
         foregroundColor: Colors.white,
         padding: EdgeInsets.all(20),
       ),
       onPressed: onPressed,
       child: Row(
+        //Avoid from taking up all the width.
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -38,21 +40,21 @@ class PrimaryButton extends StatelessWidget {
               color: Colors.white,
               fontSize: sizeText.toDouble(),
               fontWeight: weightText,
-            ),
+            )
           ),
-
+          //Using ... to expand SizedBox and Icon
           if (icon != null) ...[
+            //Spacing between text and icon
             const SizedBox(width: 60),
-
             Icon(
               icon,
               color: Colors.white,
               size: sizeText.toDouble() * 1.2,
               //weight: 900,
-            ),
-          ],
-        ],
-      ),
+            )
+          ]
+        ]
+      )
     );
   }
 }

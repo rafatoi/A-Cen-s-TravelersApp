@@ -19,8 +19,7 @@ class PlaceCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // Adjusts the width in relation to the screen width
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.9,
       height: 250,
       child: Card(
         clipBehavior: Clip.antiAlias,
@@ -29,24 +28,27 @@ class PlaceCard extends StatelessWidget{
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
+              //The background use all the space available
               Positioned.fill(
                 child: Image.asset(
                   imagePath,
                   fit: BoxFit.cover,
                 ),
               ),
-
+              //Black box that contains the info
               Container(
                 width: double.infinity,
                 height: 80,
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
+                  //Opacity
                   color: Colors.black.withAlpha(140),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
                   children: [
                     Row(
+                      //Distribute the elements within the available space.
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -56,7 +58,7 @@ class PlaceCard extends StatelessWidget{
                             color: Colors.white,
                           ),
                         ),
-
+                        //Use a container that involves the icon to adjust the size
                         Container(
                           width: 28,
                           height: 28,
@@ -73,9 +75,8 @@ class PlaceCard extends StatelessWidget{
                         ),
                       ],
                     ),
-
+                    //Spacing
                     const SizedBox(height: 8),
-
                     Row(
                       children: [
                         ...List.generate(
@@ -95,36 +96,17 @@ class PlaceCard extends StatelessWidget{
                             fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Image.asset(imagePath),
-            Text(title),
-            Text(location),
-          ],
+                          )
+                        )
+                      ]
+                    )
+                  ]
+                )
+              )
+            ]
+          )
         )
-      ),
+      )
     );
   }
-  */
-
 }

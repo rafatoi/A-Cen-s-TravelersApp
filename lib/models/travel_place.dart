@@ -4,12 +4,14 @@ class TravelPlace {
   final String description;
   final String imagePath;
   final double rating;
+  final int fee;
 
   const TravelPlace({
     required this.title,
     required this.location,
     required this.description,
     required this.imagePath,
-    required this.rating
+    required this.rating,
+    required this.fee
   });
 }
