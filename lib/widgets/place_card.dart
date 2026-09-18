@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PlaceCard extends StatelessWidget{
+class PlaceCard extends StatelessWidget {
   final String title;
   final String location;
   final String imagePath;
@@ -13,14 +13,18 @@ class PlaceCard extends StatelessWidget{
     required this.location,
     required this.imagePath,
     required this.rating,
-    required this.onTap
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: 250,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 250,
+        maxWidth: 300,
+        minHeight: 250,
+        maxHeight: 280,
+      ),
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -29,12 +33,7 @@ class PlaceCard extends StatelessWidget{
             alignment: Alignment.bottomCenter,
             children: [
               //The background use all the space available
-              Positioned.fill(
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              Positioned.fill(child: Image.asset(imagePath, fit: BoxFit.cover)),
               //Black box that contains the info
               Container(
                 width: double.infinity,
@@ -81,7 +80,7 @@ class PlaceCard extends StatelessWidget{
                       children: [
                         ...List.generate(
                           5,
-                              (index) => const Icon(
+                          (index) => const Icon(
                             Icons.star,
                             color: Colors.amber,
                             size: 16,
@@ -96,17 +95,17 @@ class PlaceCard extends StatelessWidget{
                             fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                          )
-                        )
-                      ]
-                    )
-                  ]
-                )
-              )
-            ]
-          )
-        )
-      )
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

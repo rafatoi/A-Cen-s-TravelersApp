@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:traveller_app/widgets/custom_iconbtn.dart';
 import 'package:traveller_app/widgets/primary_button.dart';
 import 'package:traveller_app/widgets/rating_badget.dart';
 import 'package:traveller_app/data/travel_places.dart';
@@ -13,130 +14,176 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         minimum: EdgeInsets.all(8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //Image.asset('assets/images/forrest_road.png'),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        places[id].imagePath,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 56,
-                      height: 56,
-                      child: IconButton(
-                          style: IconButton.styleFrom(
-                              backgroundColor: Colors.white.withAlpha(200),
-                              side: BorderSide(
-                                color: Color(0xFF276A49),
-                                width: 1,
-                              )
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.chevron_left,
-                            size: 30,
-                            color: Color(0xFF276A49),
-                          )
-                      ),
-                    )
-                  ],
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //Image.asset('assets/images/forrest_road.png'),
+                  ImageContainer(id: id),
+                  TitleSection(id: id),
+                  DescSection(id: id),
+                  ContactSection(id: id),
+                ],
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: CustomIconbtn(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ImageContainer extends StatelessWidget {
+  const ImageContainer({super.key, required this.id});
+
+  final int id;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: double.infinity,
+        maxWidth: double.infinity,
+        minHeight: 480,
+        maxHeight: 1000,
+      ),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        child: Positioned.fill(
+          child: Image.asset(places[id].imagePath, fit: BoxFit.cover),
+        ),
+      ),
+    );
+  }
+}
+
+class ContactSection extends StatelessWidget {
+  const ContactSection({super.key, required this.id});
+
+  final int id;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Text(
+              '\$${places[id].fee}',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF276A49),
               ),
             ),
             Text(
-              places[id].title,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.2),
+              '/Package',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF276A49),
+              ),
             ),
-            Row(
-              children: [
-                ...List.generate(
-                  5,
-                      (index) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                    size: 16,
-                  ),
-                ),
+          ],
+        ),
+        SizedBox(
+          width: 180,
+          child: PrimaryButton(
+            text: 'Book Now!',
+            weightText: FontWeight.w400,
+            sizeText: 24,
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('You have booked! :D')),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
 
-                const SizedBox(width: 4),
+class DescSection extends StatelessWidget {
+  const DescSection({super.key, required this.id});
 
-                Text(
-                  '4.5',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            RatingBadget(
+  final int id;
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Description',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          places[id].description,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            height: 1.6,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({super.key, required this.id});
+
+  final int id;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(
+          places[id].title,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            height: 1.2,
+          ),
+        ),
+        Row(
+          children: [
+            ...List.generate(
+              5,
+              (index) => const Icon(Icons.star, color: Colors.amber, size: 16),
             ),
-            const Text(
-              'Description',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+
+            const SizedBox(width: 4),
+
             Text(
-              places[id].description,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, height: 1.6),
+              '4.5',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                        '\$${places[id].fee}',
-                        style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF276A49)
-                        )
-                    ),
-                    Text(
-                        '/Package',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF276A49)
-                        )
-                    )
-                  ],
-                ),
-                SizedBox(
-                  width: 180,
-                  child: PrimaryButton(
-                    text: 'Book Now!',
-                    weightText: FontWeight.w400,
-                    sizeText: 24,
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('You have booked! :D')
-                        )
-                      );
-                    }
-                  )
-                )
-              ]
-            )
-          ]
-        )
-      )
+          ],
+        ),
+        RatingBadget(),
+      ],
     );
   }
 }
